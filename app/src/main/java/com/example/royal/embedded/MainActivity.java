@@ -499,6 +499,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
             editTextWh = (EditText) rootView.findViewById(R.id.editTextWh);
             editTextW = (EditText) rootView.findViewById(R.id.editTextW);
+            WattLimitGetter.asynchHttpRequest("10001", editTextW,editTextWh);
 
             buttonSet = (Button) rootView.findViewById(R.id.buttonSet);
             buttonSet.setOnClickListener(new View.OnClickListener() {
