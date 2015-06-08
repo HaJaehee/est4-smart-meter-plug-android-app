@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,16 +19,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.os.AsyncTask;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-
 
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -130,7 +130,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             actionBar.addTab(T);
         }
 
-        mDisplay = (TextView)findViewById(R.id.text3);
+//        mDisplay = (TextView)findViewById(R.id.text3);
         // Check device for Play Services APK. If check succeeds, proceed with GCM registration.
         if (checkPlayServices()) {
             globalset.setGcm(GoogleCloudMessaging.getInstance(this));
@@ -467,6 +467,11 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     }
 
     public static class PlaceholderFragment3 extends Fragment {
+
+        private EditText editTextWh;
+        private EditText editTextW;
+
+        private Button buttonSet;
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -477,6 +482,50 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
          * Returns a new instance of this fragment for the given section
          * number.
          */
+        public static PlaceholderFragment3 newInstance(int sectionNumber) {
+            PlaceholderFragment3 fragment = new PlaceholderFragment3();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        public PlaceholderFragment3() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            LinearLayout rootView = (LinearLayout) inflater.inflate(R.layout.fragment3, container, false);
+
+            editTextWh = (EditText) rootView.findViewById(R.id.editTextWh);
+            editTextW = (EditText) rootView.findViewById(R.id.editTextW);
+
+            buttonSet = (Button) rootView.findViewById(R.id.buttonSet);
+            buttonSet.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(!editTextWh.getText().equals("") && !editTextW.getText().equals("")) {
+                        editTextWh.getText();
+                        editTextW.getText();
+                    }
+
+                }
+            });
+            return rootView;
+        }
+    }
+
+    /*public static class PlaceholderFragment3 extends Fragment {
+        *//**
+         * The fragment argument representing the section number for this
+         * fragment.
+         *//*
+        private static final String ARG_SECTION_NUMBER = "section_number";
+        global globalset;
+        *//**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         *//*
         public static PlaceholderFragment3 newInstance(int sectionNumber) {
             PlaceholderFragment3 fragment = new PlaceholderFragment3();
             Bundle args = new Bundle();
@@ -505,7 +554,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             but2.setOnClickListener(m);
             return rootView;
         }
-    }
+    }*/
 }
 class myListener implements View.OnClickListener {
     //리스너 클래스를 따로 정의하여 공통된 리스너를 쓸 수 있도록한다.
@@ -587,7 +636,7 @@ class myListener implements View.OnClickListener {
                     public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                         Log.d("state", "onFailure");
-                        TV.setText(statusCode+"");
+                        TV.setText(statusCode + "");
                     }
 
                     @Override
@@ -617,7 +666,7 @@ class myListener implements View.OnClickListener {
                     public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                         Log.d("state", "onFailure");
-                        TV.setText(statusCode+"");
+                        TV.setText(statusCode + "");
                     }
 
                     @Override
@@ -627,7 +676,7 @@ class myListener implements View.OnClickListener {
                     }
                 });
                 break;
-            case R.id.but4: new AsyncTask<Void, Void, String>() {
+            /*case R.id.but4: new AsyncTask<Void, Void, String>() {
                 @Override
                 protected String doInBackground(Void... params) {
                     String msg = "";
@@ -651,7 +700,7 @@ class myListener implements View.OnClickListener {
             }.execute(null, null, null);
                 break;
             case R.id.but5:TV.setText("");
-                break;
+                break;*/
         }
     }
     private TextView TV;

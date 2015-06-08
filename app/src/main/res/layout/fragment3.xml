@@ -1,4 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="3dp">
+
+        <TextView
+            android:id="@+id/textViewWh"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="wh"
+            android:paddingRight="2dp"/>
+
+        <EditText
+            android:id="@+id/editTextWh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="3dp" >
+
+        <TextView
+            android:id="@+id/textViewW"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="w "
+            android:paddingRight="2dp" />
+
+        <EditText
+            android:id="@+id/editTextW"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="설정"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:id="@+id/buttonSet" />
+
+</LinearLayout>
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -35,4 +93,4 @@
 
     </TextView>
 
-</LinearLayout>
+</LinearLayout>-->

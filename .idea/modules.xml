@@ -3,8 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/embedded software team4 smart meter plug.iml" filepath="$PROJECT_DIR$/embedded software team4 smart meter plug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/est4-smart-meter-plug-android-app.iml" filepath="$PROJECT_DIR$/est4-smart-meter-plug-android-app.iml" />
     </modules>
   </component>
 </project>
-
