@@ -258,7 +258,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             @Override
             protected void onPostExecute(String msg) {
                 //mDisplay.append(msg + "\n");
-                DeviceRegister.asynchHttpRequest(msg);//send device registration id to jh-server.js and save that id in database
+                AndroidDeviceRegister.asynchHttpRequest(msg);//send device registration id to jh-server.js and save that id in database
             }
         }.execute(null, null, null);
     }
@@ -365,7 +365,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                     f = 1;
                     break;
                 case 2:
-                    a = "푸쉬테스트";
+                    a = "예상 전력량 설정";
                     f = 1;
                     break;
 
@@ -504,9 +504,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             buttonSet.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(!editTextWh.getText().equals("") && !editTextW.getText().equals("")) {
-                        editTextWh.getText();
-                        editTextW.getText();
+                    if(editTextWh.getText().length() != 0 && editTextW.getText().length() != 0) {
+                        String currWatt = editTextW.getText().toString();
+                        String wattHour = editTextWh.getText().toString();
+                        WattLimitRegister.asynchHttpRequest(currWatt,wattHour);
                     }
 
                 }
@@ -568,7 +569,7 @@ class myListener implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.but1:
                 //client.get(url, AsyncHttpResponseHandler);
-                client.get("http://192.168.43.138:80/check.php", new AsyncHttpResponseHandler() {
+                client.get("http://202.30.29.239:80/check.php", new AsyncHttpResponseHandler() {
 
                     @Override
                     public void onStart() {
@@ -581,20 +582,24 @@ class myListener implements View.OnClickListener {
                         // called when response HTTP status is "200 OK"
                         Log.d("state", "onSuccess");
                         try {
-                            String watt = new String();
-                            String power = new String();
+                            double watt = 0;
+                            double watthour = 0;
+                            int power = 0;
                             String strRes = new String(response,"UTF-8");
+                            Log.d("response", strRes);
                             try {
                                 JSONObject  jObject = new JSONObject(strRes);
-                                 watt = jObject.get("watt").toString();
-                                 power = jObject.get("power").toString();
+                                 watt = Double.parseDouble(jObject.get("watt").toString());
+                                 watthour = Double.parseDouble(jObject.get("watthour").toString());
+                                 watt += watthour;
+                                 power = Integer.parseInt(jObject.get("power").toString());
                             }catch (JSONException e){
                                 Log.d("state", "Error parsing data");
                             }
-                            if(power == "1") {
-                                TV.setText("watt수 : " +watt + "\n전원 : 켜짐");
+                            if(power == 1) {
+                                TV.setText("Wh : " +watt + "\n전원 : 켜짐");
                             }else{
-                                TV.setText("watt수 : " +watt + "\n전원 : 꺼짐");
+                                TV.setText("Wh : " +watt + "\n전원 : 꺼짐");
                             }
                         }
                         catch (UnsupportedEncodingException e)
@@ -618,63 +623,12 @@ class myListener implements View.OnClickListener {
                 });
                 break;
             case R.id.but2:
-                client.get("http://192.168.43.138:80/poweron.php", new AsyncHttpResponseHandler() {
-                    @Override
-                    public void onStart() {
-                        // called before request is started
-                        Log.d("state", "onStart");
-                    }
-
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                        // called when response HTTP status is "200 OK"
-                        Log.d("state", "onSuccess");
-                        TV.setText("켜짐!");
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-                        // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                        Log.d("state", "onFailure");
-                        TV.setText(statusCode + "");
-                    }
-
-                    @Override
-                    public void onRetry(int retryNo) {
-                        // called when request is retried
-                        Log.d("state", "onRetry");
-                    }
-                });
-
+                TV.setText("켜짐!");
+                DevicePowerRegister.asynchHttpRequest("1");
                 break;
             case R.id.but3:
-                client.get("http://192.168.43.138:80/poweroff.php", new AsyncHttpResponseHandler() {
-                    @Override
-                    public void onStart() {
-                        // called before request is started
-                        Log.d("state", "onStart");
-                    }
-
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                        // called when response HTTP status is "200 OK"
-                        Log.d("state", "onSuccess");
-                        TV.setText("꺼짐!");
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-                        // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                        Log.d("state", "onFailure");
-                        TV.setText(statusCode + "");
-                    }
-
-                    @Override
-                    public void onRetry(int retryNo) {
-                        // called when request is retried
-                        Log.d("state", "onRetry");
-                    }
-                });
+                TV.setText("꺼짐!");
+                DevicePowerRegister.asynchHttpRequest("0");
                 break;
             /*case R.id.but4: new AsyncTask<Void, Void, String>() {
                 @Override

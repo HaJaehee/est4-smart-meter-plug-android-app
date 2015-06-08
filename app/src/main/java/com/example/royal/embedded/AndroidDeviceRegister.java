@@ -11,7 +11,7 @@ import org.apache.http.Header;
 import java.io.UnsupportedEncodingException;
 
 
-public class DeviceRegister {
+public class AndroidDeviceRegister {
 
     public static void asynchHttpRequest (String a_strDeviceRegId) {
 
