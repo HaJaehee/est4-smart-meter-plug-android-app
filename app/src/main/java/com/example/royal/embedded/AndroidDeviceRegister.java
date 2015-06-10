@@ -1,5 +1,11 @@
 package com.example.royal.embedded;
 
+/**
+ * AndroidDeviceRegister.java
+ *
+ * Created by HJH on 2015-06-08 20:00
+ */
+
 import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;

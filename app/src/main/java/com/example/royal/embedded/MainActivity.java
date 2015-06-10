@@ -1,5 +1,11 @@
 package com.example.royal.embedded;
 
+/**
+ * MainActivity.java
+ *
+ * Created by KNS on 2015-05-21 18:42
+ */
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
